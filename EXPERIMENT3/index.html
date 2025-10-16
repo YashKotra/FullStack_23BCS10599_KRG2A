@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Filter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f1f1;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    .filter-container {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    select {
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .product-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .product {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      width: 200px;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+
+    .product:hover {
+      transform: scale(1.05);
+    }
+
+    .product h4 {
+      margin: 10px 0;
+    }
+
+    .product span {
+      color: #888;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Product Filter</h2>
+
+  <div class="filter-container">
+    <label for="categoryFilter">Filter by Category:</label>
+    <select id="categoryFilter" onchange="filterProducts()">
+      <option value="all">All</option>
+      <option value="electronics">Electronics</option>
+      <option value="clothing">Clothing</option>
+      <option value="books">Books</option>
+    </select>
+  </div>
+
+  <div class="product-list" id="productList">
+    <!-- Products will be inserted here by JavaScript -->
+  </div>
+
+  <script>
+    // Sample product data
+    const products = [
+      { name: 'Smartphone', category: 'electronics' },
+      { name: 'Laptop', category: 'electronics' },
+      { name: 'T-Shirt', category: 'clothing' },
+      { name: 'Jeans', category: 'clothing' },
+      { name: 'Novel', category: 'books' },
+      { name: 'Notebook', category: 'books' }
+    ];
+
+    // Reference to the container
+    const productList = document.getElementById('productList');
+
+    // Function to render products
+    function renderProducts(filteredProducts) {
+      productList.innerHTML = ''; // Clear previous
+      filteredProducts.forEach(product => {
+        const div = document.createElement('div');
+        div.className = 'product';
+        div.innerHTML = `<h4>${product.name}</h4><span>${product.category}</span>`;
+        productList.appendChild(div);
+      });
+    }
+
+    // Function to filter products
+    function filterProducts() {
+      const selectedCategory = document.getElementById('categoryFilter').value;
+      if (selectedCategory === 'all') {
+        renderProducts(products);
+      } else {
+        const filtered = products.filter(p => p.category === selectedCategory);
+        renderProducts(filtered);
+      }
+    }
+
+    // Initial render
+    renderProducts(products);
+  </script>
+
+</body>
+</html>
