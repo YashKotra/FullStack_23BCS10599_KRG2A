@@ -3,18 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dynamic Product Filter</title>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Dynamic Product Filter</h1>
 
-  <select id="filter">
-    <option value="all">All Products</option>
-    <option value="electronics">Electronics</option>
-    <option value="clothing">Clothing</option>
-  </select>
+  <!-- Navbar Component -->
+  <nav class="navbar">
+    <div class="navbar-left">
+      <h2>Admin Panel</h2>
+    </div>
+    <div class="navbar-right">
+      <button class="theme-toggle">🌙 Dark Mode</button>
+    </div>
+  </nav>
 
-  <div id="products-container"></div>
+  <div class="container">
+    <!-- Sidebar Component -->
+    <aside class="sidebar">
+      <nav>
+        <a href="#">Overview</a>
+        <a href="#">Reports</a>
+        <a href="#">Analytics</a>
+        <a href="#">Settings</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main>
+      <section class="card">📊 Chart</section>
+      <section class="card">📈 Analytics</section>
+      <section class="card">📂 Reports</section>
+      <section class="card">⚙️ Settings</section>
+    </main>
+  </div>
 
   <script src="script.js"></script>
 </body>

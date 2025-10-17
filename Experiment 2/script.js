@@ -1,35 +1,37 @@
-const products = [
-  { name: "Laptop", category: "electronics", price: 999 },
-  { name: "Shirt", category: "clothing", price: 25 },
-  { name: "Headphones", category: "electronics", price: 199 },
-  { name: "Jeans", category: "clothing", price: 45 },
-  { name: "Smartphone", category: "electronics", price: 699 },
-];
-document.getElementById("filter").addEventListener("change", (e) => {
-  const selected = e.target.value;
-  const filtered =
-    selected === "all"
-      ? products
-      : products.filter((p) => p.category === selected);
-  renderProducts(filtered);
-});
+// Select elements
+const toggleBtn = document.querySelector('.theme-toggle');
+const body = document.body;
 
-function renderProducts(products) {
-  const container = document.getElementById("products-container");
-  if (products.length === 0) {
-    container.innerHTML = `<p>No products found</p>`;
-    return;
-  }
-  container.innerHTML = products
-    .map(
-      (p) => `
-    <div class="product">
-      <h3>${p.name}</h3>
-      <p>$${p.price}</p>
-    </div>
-  `
-    )
-    .join("");
+// Apply saved theme if exists
+if (localStorage.getItem('theme') === 'dark') {
+  body.classList.add('dark-theme');
+  toggleBtn.textContent = "☀️ Light Mode";
 }
 
-renderProducts(products);
+// Toggle theme on button click
+toggleBtn.addEventListener('click', () => {
+  body.classList.toggle('dark-theme');
+
+  if (body.classList.contains('dark-theme')) {
+    toggleBtn.textContent = "☀️ Light Mode";
+    localStorage.setItem('theme', 'dark');
+  } else {
+    toggleBtn.textContent = "🌙 Dark Mode";
+    localStorage.setItem('theme', 'light');
+  }
+});
+
+// Auto-detect system theme if user hasn’t chosen yet
+if (!localStorage.getItem('theme')) {
+  if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    body.classList.add('dark-theme');
+    toggleBtn.textContent = "☀️ Light Mode";
+  }
+}
+// Toggle Dark Mode Functionality
+const themeToggleButton = document.querySelector('.theme-toggle');
+themeToggleButton.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+});
+
+// You can add additional event listeners and functions as needed
