@@ -1,0 +1,58 @@
+{
+  "categories": [
+    "Shoes",
+    "Shirts",
+    "Pants",
+    "Jackets",
+    "Accessories",
+    "Hoodies",
+    "Sweaters",
+    "Jeans",
+    "Socks",
+    "Underwear"
+  ],
+  "genders": ["Men", "Women", "Unisex", "Kids"],
+  "colors": [
+    "Red",
+    "Blue",
+    "Green",
+    "Black",
+    "White",
+    "Yellow",
+    "Purple",
+    "Gray",
+    "Brown",
+    "Pink"
+  ],
+  "sizes": ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
+  "materials": [
+    "Cotton",
+    "Polyester",
+    "Leather",
+    "Denim",
+    "Wool",
+    "Silk",
+    "Linen",
+    "Nylon",
+    "Spandex",
+    "Rayon"
+  ],
+  "brands": [
+    "Nike",
+    "Adidas",
+    "Puma",
+    "Reebok",
+    "Under Armour",
+    "New Balance",
+    "Levi's",
+    "H&M",
+    "Zara",
+    "Uniqlo",
+    "Gucci",
+    "Prada"
+  ],
+  "priceRange": {
+    "min": 49,
+    "max": 10999
+  }
+}
