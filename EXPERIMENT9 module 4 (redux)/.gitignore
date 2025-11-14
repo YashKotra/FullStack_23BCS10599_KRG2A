@@ -1,0 +1,19 @@
+#Logs
+logs
+*.logs
+
+# Node.js
+node_modules
+
+# Local env files
+.env
+.env
+.env.local
+
+# Vite cache
+.vite/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+

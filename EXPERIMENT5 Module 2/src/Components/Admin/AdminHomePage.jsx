@@ -1,0 +1,108 @@
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { fetchAllOrders } from "../../redux/slice/adminOrderSlice";
+import { fetchAdminProducts } from "../../redux/slice/adminProductSlice"; // ✅ Import the correct action
+
+const AdminHomePage = () => {
+  const dispatch = useDispatch();
+
+  const {
+    products,
+    loading: productsLoading,
+    error: productsError,
+  } = useSelector((state) => state.adminProducts);
+
+  const {
+    orders,
+    totalOrders,
+    totalSales,
+    loading: ordersLoading,
+    error: ordersError,
+  } = useSelector((state) => state.adminOrders);
+
+  useEffect(() => {
+    dispatch(fetchAdminProducts());
+    dispatch(fetchAllOrders());
+  }, [dispatch]);
+
+  if (productsLoading || ordersLoading) return <p>Loading...</p>;
+  if (productsError)
+    return (
+      <p className="text-red-500">Error fetching products: {productsError}</p>
+    );
+  if (ordersError)
+    return <p className="text-red-500">Error fetching orders: {ordersError}</p>;
+
+  return (
+    <div className="max-w-7xl mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
+
+      {/* Summary Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div className="p-4 shadow-md rounded-lg hover:shadow-lg bg-white">
+          <h2 className="text-xl font-semibold">Revenue</h2>
+          <p className="text-2xl">
+            Rs.{totalSales?.toFixed(2).toLocaleString("en-IN") || 0}
+          </p>
+        </div>
+        <div className="p-4 shadow-md rounded-lg hover:shadow-lg bg-white">
+          <h2 className="text-xl font-semibold">Total Orders</h2>
+          <p className="text-2xl">{totalOrders || 0}</p>
+          <Link to="/admin/orders" className="text-blue-500 hover:underline">
+            Manage Orders
+          </Link>
+        </div>
+        <div className="p-4 shadow-md rounded-lg hover:shadow-lg bg-white">
+          <h2 className="text-xl font-semibold">Total Products</h2>
+          <p className="text-2xl">{products?.length || 0}</p>
+          <Link to="/admin/products" className="text-blue-500 hover:underline">
+            Manage Products
+          </Link>
+        </div>
+      </div>
+
+      {/* Recent Orders Table */}
+      <div className="mt-8">
+        <h2 className="text-2xl font-bold mb-4">Recent Orders</h2>
+        <div className="overflow-x-auto">
+          <table className="min-w-full text-left text-gray-700 bg-white shadow-md rounded-lg">
+            <thead className="bg-gray-100 text-xs uppercase">
+              <tr>
+                <th className="py-3 px-4">Order ID</th>
+                <th className="py-3 px-4">User</th>
+                <th className="py-3 px-4">Total Price</th>
+                <th className="py-3 px-4">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders && orders.length > 0 ? (
+                orders.slice(0, 5).map((order) => (
+                  <tr key={order._id} className="border-b hover:bg-gray-50">
+                    <td className="py-3 px-4">{order._id}</td>
+                    <td className="py-3 px-4">{order.user?.name || "N/A"}</td>
+                    <td className="py-3 px-4">Rs.{order.totalPrice.toFixed(2)}</td>
+                    <td className="py-3 px-4 capitalize">
+                      {order.status || "pending"}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td
+                    colSpan="4"
+                    className="py-6 px-4 text-center text-gray-500"
+                  >
+                    No recent orders found.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AdminHomePage;
